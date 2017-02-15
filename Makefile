@@ -52,6 +52,11 @@ CONFIGURE_ARGS += --disable-ssp --disable-documentation --disable-assert --with-
 define Package/shadowsocks-libev/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/ss-{local,redir,tunnel} $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_DIR) $(1)/etc/hotplug.d/iface
+	$(INSTALL_CONF) ./files/shadowsocks.conf $(1)/etc/shadowsocks.json
+	$(INSTALL_DATA) ./files/shadowsocks.hotplug $(1)/etc/hotplug.d/iface/99-shadowsocks
+	$(INSTALL_BIN) ./files/shadowsocks.init $(1)/etc/init.d/shadowsocks
 endef
 
 define Package/shadowsocks-libev-server/install
