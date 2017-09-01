@@ -54,7 +54,8 @@ define Package/shadowsocks-libev/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/ss-{local,redir,tunnel} $(1)/usr/bin
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/etc/hotplug.d/iface
-	$(INSTALL_CONF) ./files/shadowsocks.conf $(1)/etc/shadowsocks.json
+	$(INSTALL_DATA) ./files/shadowsocks.config $(1)/etc/config/shadowsocks
+	$(INSTALL_CONF) ./files/shadowsocks.json $(1)/etc/shadowsocks.json
 	$(INSTALL_DATA) ./files/shadowsocks.hotplug $(1)/etc/hotplug.d/iface/99-shadowsocks
 	$(INSTALL_BIN) ./files/shadowsocks.init $(1)/etc/init.d/shadowsocks
 endef
