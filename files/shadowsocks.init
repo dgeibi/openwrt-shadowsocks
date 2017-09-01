@@ -6,6 +6,9 @@ USE_PROCD=1
 CONFIG="/etc/shadowsocks.json"
 
 start_service() {
+	enabled=$(uci -q get shadowsocks.@shadowsocks[0].enabled)
+	[ "1" = "$enabled" ] || [ "on" = "$enabled" ] || [ "true" = "$enabled" ] || return 0
+
 	procd_open_instance
 	procd_set_param command /usr/bin/ss-redir -c $CONFIG
 	procd_set_param file $CONFIG
